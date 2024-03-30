@@ -11,5 +11,14 @@ public class SecureActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_secure);
+
+        // TODO: Validate if the user is having a proper authenticated session.
+    }
+
+    /**
+     *  This method is used to log out user when click on the log out button
+     */
+    private void logout(){
+        // TODO: Implementation Pending.
     }
 }

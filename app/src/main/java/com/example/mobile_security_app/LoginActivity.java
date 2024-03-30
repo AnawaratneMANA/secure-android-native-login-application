@@ -32,7 +32,18 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     *  This method going to register all the XML elements in the Java class.
+     */
     private void setInterfaceElements() {
         registerText = findViewById(R.id.registerLink);
+    }
+
+    /**
+     *  This method going to login user to the system and set the global session,
+     *  If valid user, then user will be navigate to the {@link SecureActivity}
+     */
+    private void login(){
+        // TODO: Implementation Pending
     }
 }

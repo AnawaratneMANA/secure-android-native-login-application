@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">mobile-security-app</string>
+    <string name="app_sub_header" value="A simple login application with secure login
+    functionality using password salting and hashing" />
+</resources>

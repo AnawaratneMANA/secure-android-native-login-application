@@ -2,4 +2,14 @@
     <string name="app_name">mobile-security-app</string>
     <string name="app_sub_header" value="A simple login application with secure login
     functionality using password salting and hashing" />
+    <string name="app_description_secure">⚠️This activity is only available for authenticated users.</string>
+    <string name="secure_activity">Secure Activity</string>
+    <string name="register">Register</string>
+    <string name="password">Password</string>
+    <string name="username">Username</string>
+    <string name="log_in">Log In</string>
+    <string name="name">Name</string>
+    <string name="app_description">A simple login application with secure login functionality using password salting and hashing</string>
+    <string name="secure_login">Secure Login</string>
+    <string name="log_out">Log out</string>
 </resources>

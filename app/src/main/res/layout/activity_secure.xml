@@ -1,9 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".SecureActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:textColor="@color/purple_500"
+        android:text="@string/secure_activity"
+        android:textStyle="bold"
+        android:textSize="48sp" />
+
+    <TextView
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:textAlignment="textStart"
+        android:id="@+id/textView"
+        android:textColor="@color/black"
+        android:layout_width="356dp"
+        android:layout_height="72dp"
+        android:text="@string/app_description_secure"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="36dp"
+        android:text="@string/log_out" />
+
+</LinearLayout>

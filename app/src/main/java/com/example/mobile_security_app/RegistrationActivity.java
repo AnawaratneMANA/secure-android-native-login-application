@@ -50,7 +50,11 @@ public class RegistrationActivity extends AppCompatActivity {
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                register();
+                try {
+                    register();
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
             }
         });
     }
@@ -66,32 +70,36 @@ public class RegistrationActivity extends AppCompatActivity {
     private void register(){
         // Run validation
         inputValidation();
+        if(!inputValidation()) {
+            LOGGER.warning("Input field validation failed!");
+        } else {
+            // Proceed with storing data in the database.
+            UUID uuid = UUID.randomUUID();
+            String randomSalt = uuid.toString();
 
-        // Proceed with storing data in the database.
-        UUID uuid = UUID.randomUUID();
-        String randomSalt = uuid.toString();
+            // Validate the username.
+            String usernameParam = username.getText().toString();
+            if(usernameValidation(usernameParam)) {
+                Toast.makeText(this, "Username is already there in the database!", Toast.LENGTH_SHORT).show();
+                LOGGER.warning("Username is already there in the database!");
+                throw new RuntimeException("Username is already there in the database!");
+            }
 
-        // Validate the username.
-        String usernameParam = username.getText().toString();
-        if(usernameValidation(usernameParam)) {
-            Toast.makeText(this, "Username is already there in the database!", Toast.LENGTH_SHORT).show();
-            LOGGER.warning("Username is already there in the database!");
-            throw new RuntimeException("Username is already there in the database!");
+            DatabaseHelper dbHelper = DatabaseHelper.getInstance(this);
+            SQLiteDatabase db = dbHelper.getReadableDatabase();
+            ContentValues contentValues = new ContentValues();
+            contentValues.put("username", usernameParam);
+            contentValues.put("salt", randomSalt);
+            String hashedPassword = getHashedPassword(passwordOne.getText().toString(), randomSalt);
+            contentValues.put("password", hashedPassword);
+            long id = db.insert("user", null, contentValues);
+            LOGGER.info("Insert database record: " + id);
+            db.close();
+            // Redirect the user to the login screen.
+            Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
+            startActivity(intent);
         }
 
-        DatabaseHelper dbHelper = DatabaseHelper.getInstance(this);
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put("username", usernameParam);
-        contentValues.put("salt", randomSalt);
-        String hashedPassword = getHashedPassword(passwordOne.getText().toString(), randomSalt);
-        contentValues.put("password", hashedPassword);
-        long id = db.insert("user", null, contentValues);
-        LOGGER.info("Insert database record: " + id);
-        db.close();
-        // Redirect the user to the login screen.
-        Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
-        startActivity(intent);
     }
 
     private String getHashedPassword(String password, String randomSalt) {
@@ -126,20 +134,21 @@ public class RegistrationActivity extends AppCompatActivity {
             isValid = false;
         }
 
-        if(TextUtils.isEmpty(passwordOne.getText().toString())){
-            passwordOne.setText("Password one can't be empty");
-            isValid = false;
-        }
+        if(TextUtils.isEmpty(passwordOne.getText().toString()) && TextUtils.isEmpty(passwordTwo.getText().toString())){
+            if(TextUtils.isEmpty(passwordOne.getText().toString())){
+                isValid = false;
+            }
 
-        if(TextUtils.isEmpty(passwordTwo.getText().toString())){
-            passwordTwo.setText("Password two can't be empty");
-            isValid = false;
-        }
-
-        // Password comparison between one and two
-        if(!passwordOne.getText().toString().contentEquals(passwordTwo.getText().toString())){
-            Toast.makeText(this, "Password are not identical", Toast.LENGTH_SHORT).show();
-            isValid = false;
+            if(TextUtils.isEmpty(passwordTwo.getText().toString())){
+                isValid = false;
+            }
+            Toast.makeText(this, "Password fields are empty!", Toast.LENGTH_SHORT).show();
+        } else {
+            // Password comparison between one and two
+            if(!passwordOne.getText().toString().contentEquals(passwordTwo.getText().toString())){
+                Toast.makeText(this, "Password are not identical", Toast.LENGTH_SHORT).show();
+                isValid = false;
+            }
         }
         return isValid;
     }

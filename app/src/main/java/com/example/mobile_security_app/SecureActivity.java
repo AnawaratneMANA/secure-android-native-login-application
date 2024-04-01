@@ -8,9 +8,10 @@ import android.view.View;
 import android.widget.Button;
 
 import java.util.Objects;
+import java.util.logging.Logger;
 
 public class SecureActivity extends AppCompatActivity {
-
+    private static final Logger LOGGER = Logger.getLogger(SecureActivity.class.getName());
     private Button logOutButton;
 
     @Override
@@ -20,6 +21,7 @@ public class SecureActivity extends AppCompatActivity {
         setContentView(R.layout.activity_secure);
 
         // Validate the user session.
+        LOGGER.info("Validating user session");
         String username = SessionManager.getInstance(this).getUsername();
         if(Objects.isNull(username)){
             Intent intent = new Intent(SecureActivity.this, LoginActivity.class);
@@ -41,6 +43,7 @@ public class SecureActivity extends AppCompatActivity {
      */
     private void logout(){
         // Clear the session and forward user to the Login screen again.
+        LOGGER.info("Logging out the user");
         SessionManager.getInstance(this).saveSession(null);
         Intent intent = new Intent(SecureActivity.this, LoginActivity.class);
         startActivity(intent);

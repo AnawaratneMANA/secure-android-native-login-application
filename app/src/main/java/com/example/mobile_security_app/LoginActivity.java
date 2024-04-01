@@ -120,6 +120,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public Boolean isValidUser(String username, String password){
+        LOGGER.info("User validation comparing hash values");
         // Query the database to find out, if the valid user is attempt to login.
         DatabaseHelper dbHelper = DatabaseHelper.getInstance(this);
         SQLiteDatabase db = dbHelper.getReadableDatabase();

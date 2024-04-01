@@ -90,7 +90,7 @@ public class RegistrationActivity extends AppCompatActivity {
             ContentValues contentValues = new ContentValues();
             contentValues.put("username", usernameParam);
             contentValues.put("salt", randomSalt);
-            String hashedPassword = getHashedPassword(passwordOne.getText().toString(), randomSalt);
+            String hashedPassword = PasswordHashUtility.getHashedPassword(passwordOne.getText().toString(), randomSalt);
             contentValues.put("password", hashedPassword);
             long id = db.insert("user", null, contentValues);
             LOGGER.info("Insert database record: " + id);
@@ -100,27 +100,6 @@ public class RegistrationActivity extends AppCompatActivity {
             startActivity(intent);
         }
 
-    }
-
-    private String getHashedPassword(String password, String randomSalt) {
-       try {
-           password = password + randomSalt;
-           MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
-           messageDigest.update(password.getBytes());
-           byte [] bytes = messageDigest.digest();
-
-           // Convert to Hex Decimal
-           StringBuilder stringBuilder = new StringBuilder();
-           for (byte b : bytes){
-               stringBuilder.append(String.format("%02x", b));
-           }
-           LOGGER.info("Password hash: " + stringBuilder.toString());
-           return stringBuilder.toString();
-       } catch (NoSuchAlgorithmException e){
-           e.printStackTrace();
-           LOGGER.warning("Error during password hashing");
-           return null;
-       }
     }
 
     @SuppressLint("SetTextI18n")

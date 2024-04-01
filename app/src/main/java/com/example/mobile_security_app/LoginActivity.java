@@ -83,6 +83,8 @@ public class LoginActivity extends AppCompatActivity {
         }
         // Validate the User Login, Query the table.
         if(isValidUser(username.getText().toString(), password.getText().toString())){
+            // Login session using shared references.
+            SessionManager.getInstance(this).saveSession(username.getText().toString());
             // Proceed with the login
             Intent intent = new Intent(LoginActivity.this, SecureActivity.class);
             startActivity(intent);

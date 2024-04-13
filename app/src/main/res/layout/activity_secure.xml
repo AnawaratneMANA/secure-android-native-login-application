@@ -28,6 +28,17 @@
         android:text="@string/app_description_secure"
         android:textSize="20sp" />
 
+    <TextView
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:textAlignment="textStart"
+        android:id="@+id/textViewUser"
+        android:textColor="@color/black"
+        android:layout_width="356dp"
+        android:layout_height="72dp"
+        android:text="@string/user_n_a"
+        android:textSize="20sp" />
+
     <Button
         android:id="@+id/logOutButton"
         android:layout_width="wrap_content"

@@ -2,10 +2,12 @@ package com.example.mobile_security_app;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import java.util.Objects;
 import java.util.logging.Logger;
@@ -13,7 +15,9 @@ import java.util.logging.Logger;
 public class SecureActivity extends AppCompatActivity {
     private static final Logger LOGGER = Logger.getLogger(SecureActivity.class.getName());
     private Button logOutButton;
+    private TextView userName;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +34,7 @@ public class SecureActivity extends AppCompatActivity {
         }
         // Set the user interface elements
         setUserInterfaceElements();
+        userName.setText("Logged In User: " + username);
         logOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -56,5 +61,6 @@ public class SecureActivity extends AppCompatActivity {
     private void setUserInterfaceElements(){
         // Register the elements.
         logOutButton = findViewById(R.id.logOutButton);
+        userName = findViewById(R.id.textViewUser);
     }
 }

@@ -12,4 +12,5 @@
     <string name="app_description">A simple login application with secure login functionality using password salting and hashing</string>
     <string name="secure_login">Secure Login</string>
     <string name="log_out">Log out</string>
+    <string name="user_n_a">User: N/A</string>
 </resources>

@@ -67,7 +67,7 @@ public class RegistrationActivity extends AppCompatActivity {
      *  ✅  Check if the user is already register to the system using the same username.
      *  ✅  If user registration is success then user will be navigated back to the login.
      */
-    private void register(){
+    private void register() {
         // Run validation
         inputValidation();
         if(!inputValidation()) {
@@ -80,7 +80,8 @@ public class RegistrationActivity extends AppCompatActivity {
             // Validate the username.
             String usernameParam = username.getText().toString();
             if(usernameValidation(usernameParam)) {
-                Toast.makeText(this, "Username is already there in the database!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Username is already there in the database!",
+                        Toast.LENGTH_SHORT).show();
                 LOGGER.warning("Username is already there in the database!");
                 throw new RuntimeException("Username is already there in the database!");
             }
@@ -90,13 +91,15 @@ public class RegistrationActivity extends AppCompatActivity {
             ContentValues contentValues = new ContentValues();
             contentValues.put("username", usernameParam);
             contentValues.put("salt", randomSalt);
-            String hashedPassword = PasswordHashUtility.getHashedPassword(passwordOne.getText().toString(), randomSalt);
+            String hashedPassword = PasswordHashUtility.getHashedPassword(
+                    passwordOne.getText().toString(), randomSalt);
             contentValues.put("password", hashedPassword);
             long id = db.insert("user", null, contentValues);
             LOGGER.info("Insert database record: " + id);
             db.close();
             // Redirect the user to the login screen.
-            Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
+            Intent intent = new Intent(RegistrationActivity.this,
+                    LoginActivity.class);
             startActivity(intent);
         }
 
@@ -113,7 +116,8 @@ public class RegistrationActivity extends AppCompatActivity {
             isValid = false;
         }
 
-        if(TextUtils.isEmpty(passwordOne.getText().toString()) && TextUtils.isEmpty(passwordTwo.getText().toString())){
+        if(TextUtils.isEmpty(passwordOne.getText().toString()) &&
+                TextUtils.isEmpty(passwordTwo.getText().toString())){
             if(TextUtils.isEmpty(passwordOne.getText().toString())){
                 isValid = false;
             }
@@ -121,11 +125,13 @@ public class RegistrationActivity extends AppCompatActivity {
             if(TextUtils.isEmpty(passwordTwo.getText().toString())){
                 isValid = false;
             }
-            Toast.makeText(this, "Password fields are empty!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Password fields are empty!",
+                    Toast.LENGTH_SHORT).show();
         } else {
             // Password comparison between one and two
             if(!passwordOne.getText().toString().contentEquals(passwordTwo.getText().toString())){
-                Toast.makeText(this, "Password are not identical", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Password are not identical",
+                        Toast.LENGTH_SHORT).show();
                 isValid = false;
             }
         }

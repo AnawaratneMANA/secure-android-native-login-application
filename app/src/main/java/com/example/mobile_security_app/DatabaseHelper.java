@@ -26,7 +26,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         // Implement the database tables
-        String sqlCreateQuery = "CREATE TABLE IF NOT EXISTS user (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, salt TEXT, password TEXT)";
+        String sqlCreateQuery = "CREATE TABLE IF NOT EXISTS " +
+                "user (id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "username TEXT, salt TEXT, password TEXT)";
         sqLiteDatabase.execSQL(sqlCreateQuery);
 
     }

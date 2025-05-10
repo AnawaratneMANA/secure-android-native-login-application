@@ -119,6 +119,12 @@ public class LoginActivity extends AppCompatActivity {
         return isValid;
     }
 
+    /**
+     * This method is used to verify if the user is a valid user or not.
+     * @param username
+     * @param password
+     * @return Boolean
+     */
     public Boolean isValidUser(String username, String password){
         LOGGER.info("User validation comparing hash values");
         // Query the database to find out, if the valid user is attempt to login.
@@ -139,14 +145,17 @@ public class LoginActivity extends AppCompatActivity {
             int saltIndex = cursor.getColumnIndex("salt");
 
             if (passwordIndex != -1 && saltIndex != -1) {
-                @SuppressLint("Range") String storedPassword = cursor.getString(cursor.getColumnIndex("password"));
-                @SuppressLint("Range") String salt = cursor.getString(cursor.getColumnIndex("salt"));
+                @SuppressLint("Range") String storedPassword = cursor.
+                        getString(cursor.getColumnIndex("password"));
+                @SuppressLint("Range") String salt = cursor.
+                        getString(cursor.getColumnIndex("salt"));
                 // Use password and salt as needed
                 cursor.close();
                 // Perform the comparison
                 return storedPassword.contentEquals(
                         Objects.requireNonNull(
-                                PasswordHashUtility.getHashedPassword(password, salt)));
+                                PasswordHashUtility.
+                                        getHashedPassword(password, salt)));
             }
         }
         return false;
